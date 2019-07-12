@@ -1,0 +1,72 @@
+{% import "macros.html" as macros %}
+
+<!DOCTYPE HTML>
+<html>
+    <head>
+        {% include "head.html" %}
+        {% if page.extra.katex %}
+            {% include "katex.html" %}
+        {% endif %}
+    </head>
+    <body class="single is-preload">
+        <!-- Wrapper -->
+        <div id="wrapper">
+
+            {% include "header.html" %}
+
+            {% include "menu.html" %}
+
+            <!-- Main -->
+            <div id="main">
+                {% block content %}
+                <article class="post">
+                    {{ macros::title(page=page) }}
+                    {% if page.extra.banner %}
+                    <span class="image featured"><img src="/images/{{ page.extra.banner }}-banner.jpg" alt="" /></span>
+                    {% else %}
+                    <span class="image featured"><img src="/images/pic01.jpg" alt="" /></span>
+                    {% endif %}
+                    {{ page.content | safe }}
+                    <footer>
+                        <ul class="stats">
+                            {% for tag in page.taxonomies.tags %}
+                            <li><a href="{{ get_taxonomy_url(kind="tags", name=tag) }}">{{ tag }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </footer>
+                </article>
+
+                {% include "comments.html" %}
+
+                <center>
+                <ul class="actions pagination">
+                    <li>
+                        {% if page.later %}
+                        <a href="{{ page.later.permalink }}" class="button big"><i class="fao fa-chevron-double-left"></i> Newer Post</a>
+                        {% else %}
+                        <a href="#" class="disabled button big">Newest Post</a>
+                        {% endif %}
+                    </li>
+                    <li>
+                        {% if page.earlier %}
+                        <a href="{{ page.earlier.permalink }}" class="button big">Older Post <i class="fao fa-chevron-double-right"></i></a>
+                        {% else %}
+                        <a href="#" class="disabled button big">Oldest Post</a>
+                        {% endif %}
+                    </li>
+                </ul>
+                </center>
+                {% endblock content %}
+
+                {% include "footer.html" %}
+
+            </section>
+
+        </div>
+
+        <script src="/js/axiomatic.js"></script>
+        {% if page.extra.katex %}
+        <script src="/js/math.js"></script>
+        {% endif %}
+    </body>
+</html>

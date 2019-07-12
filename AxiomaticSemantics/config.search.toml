@@ -1,0 +1,12 @@
+title = "Axiomatic Semantics"
+description = "Brute force solutions with proofs by intimidation"
+base_url = "https://axiomatic.neophilus.net"
+
+build_search_index = true
+
+taxonomies = [
+    {name = "tags"},
+]
+
+[extra.author]
+name = "Tim DuBois"
